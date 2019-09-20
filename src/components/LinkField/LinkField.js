@@ -15,7 +15,8 @@ export const LinkField = (props) => {
           <button href="#" className="linkfield-button btn btn-primary">Edit</button>
           <button href="#" className="linkfield-remove-button btn btn-danger">Remove</button>
         </div>
-      } else {
+      }
+      {!value &&
         <button href="#" className="linkfield-button btn btn-primary font-icon-plus-circled">Add Link</button>
       }
 
