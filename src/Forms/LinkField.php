@@ -22,6 +22,10 @@ use SilverStripe\Forms\TextField;
  */
 class LinkField extends TextField
 {
+    protected $schemaDataType = FormField::SCHEMA_DATA_TYPE_CUSTOM;
+
+    protected $schemaComponent = 'LinkField';
+
     /**
      * @var array
      */
@@ -212,5 +216,23 @@ class LinkField extends TextField
     public function getAllowedTypes()
     {
         return $this->allowed_types;
+    }
+
+    /**
+     * Add some extra props for the React component to work with
+     *
+     * {@inheritDoc}
+     */
+    public function getSchemaDataDefaults()
+    {
+        $linkObj = $this->getLinkObject();
+        $schema = parent::getSchemaDataDefaults();
+        $schema['data'] = array_merge($schema['data'], [
+            'LinkURL' => $linkObj->getLinkURL(),
+            'TargetAttr' => $linkObj->getTargetAttr(),
+            'ClassAttr' => $linkObj->getClassAttr(),
+            'Title' => $linkObj->Title,
+        ]);
+        return $schema;
     }
 }
